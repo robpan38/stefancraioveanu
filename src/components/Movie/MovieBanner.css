@@ -1,0 +1,21 @@
+.movieBanner {
+    height: 25%;
+    width: 100%;
+
+    position: relative;
+}
+
+.movieBanner img {
+    height: 100%;
+    width: 100%;
+}
+
+.smallDescription {
+    position: absolute;
+    color: white;
+}
+
+.bigDescription {
+    position: absolute;
+    color: white;
+}

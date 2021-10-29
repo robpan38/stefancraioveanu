@@ -1,0 +1,9 @@
+.moviesWrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.moviesFlexContainer {
+    height: 50%;
+    display: flex;
+}
