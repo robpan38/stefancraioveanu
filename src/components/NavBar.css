@@ -1,0 +1,30 @@
+.navBarWrapper {
+    height: 7%;
+    width: 100%;
+    background-color: black;
+
+    color: white;
+    font-family: var(--font1, 'sans-serif');
+
+    position: fixed;
+    z-index: 3;
+}
+
+.menuWrapper {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menuWrapper p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+
+.menuWrapper p {
+    font-size: 1.2rem;
+}

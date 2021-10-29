@@ -1,8 +1,10 @@
 .movieBanner {
-    height: 25%;
+    height: 50%;
     width: 100%;
 
     position: relative;
+    font-family: var(--font1, 'sans-serif');
+    transition: all 1s ease-in-out;
 }
 
 .movieBanner img {
@@ -10,12 +12,46 @@
     width: 100%;
 }
 
-.smallDescription {
+.movieBanner img:hover {
+    filter: blur(2px) grayscale(100%);
+    opacity: 100%;
+    cursor: pointer;
+}
+
+.textWrapper {
+    display: block;
+    /* width: 100%; */
+
     position: absolute;
+    z-index: 2;
+    bottom: 0%;
+    
+    background-color: black;
+}
+
+.movieBanner:hover .textWrapper {
+    width: 100%;
+    text-align: center;
+    transform: translateY(-100%);
+    background-color: transparent;
+}
+
+.movieBanner:hover .smallDescription {
+    text-decoration: underline;
+    color: red;
+}
+
+.movieBanner:hover .bigDescription {
+    text-decoration: line-through;
+    color: red;
+}
+
+.smallDescription {
     color: white;
+    font-size: 2rem;
 }
 
 .bigDescription {
-    position: absolute;
     color: white;
+    font-size: 3rem;
 }
