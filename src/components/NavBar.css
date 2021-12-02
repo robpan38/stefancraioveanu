@@ -6,7 +6,7 @@
     color: white;
     font-family: var(--font1, 'sans-serif');
 
-    position: fixed;
+    position: sticky;
     z-index: 3;
 }
 
