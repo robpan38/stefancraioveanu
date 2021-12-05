@@ -1,6 +1,11 @@
 import NavBar from "../NavBar";
 import styled from "styled-components";
 import posterSouls from "../../images/carnival/poster.jpg";
+import carnival1 from "../../images/carnival/pic1.jpg";
+import carnival2 from "../../images/carnival/pic2.jpg";
+import carnival3 from "../../images/carnival/pic3.jpg";
+import carnival4 from "../../images/carnival/pic4.jpg";
+import sky from "../../images/sky.mp4";
 import { useState } from "react";
 
 const MoviePageWrapper = styled.div`
@@ -10,10 +15,11 @@ const MoviePageWrapper = styled.div`
 `;
 
 const HeaderWrapper = styled.div`
-    height: 93%;
+    min-height: 93%;
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
 `;
 
@@ -26,38 +32,19 @@ const HeaderTitleWrapper = styled.div`
     align-items: center;
 
     && .movieTitle {
+        display: table-caption;
+
         height: 15%;
-        width: 100%;
-        font-size: 2rem;
+        width: 70%;
+        font-size: 3rem;
         text-align: center;
-    }
 
-    && .posterWrapper {
-        height: 0;
-        width: 0;
-    }
-`;
-
-const PosterButton = styled.button`
-    font-family: var(--font2, 'sans-serif');
-    font-size: 1rem;
-    cursor: pointer;
-    height: 10%;
-    width: 15%;
-
-    background-color: white;
-    border-style: solid;
-    border-color: black;
-
-    &&:hover {
-        background-color: black;
-        color: white;
-        border-color: white;
+        border: 2px solid black;
     }
 `;
 
 const HeaderDescriptionWrapper = styled.div`
-    height: 40%;
+    height: auto;
     width: 100%;
 
     display: flex;
@@ -78,6 +65,7 @@ const LineContainer = styled.div`
         width: 47.5%;
         font-weight: 700;
         text-align: right;
+        text-decoration: underline;
     }
 
     && .value {
@@ -86,9 +74,62 @@ const LineContainer = styled.div`
 `;
 
 const PhotoDescriptionContainer = styled.div`
-    height: 100%;
+    height: 80%;
+    min-height: 80%;
     width: 100%;
-    background-color: pink;
+    display: flex;
+    flex-direction: ${props => props.reversed ? "row-reverse" : "row"};
+    justify-content: center;
+
+    && img {
+        height: 80%;
+        width: calc(100% / 3);
+    }
+
+    && video {
+        height: 90%;
+        width: calc(100% / 2);
+    }
+`;
+
+const BoldDescriptionContainer = styled.div`
+    height: 80%;
+    width: calc(100% / 3);
+    align-self: flex-end;
+    
+    display: flex;
+    justify-content: ${props => props.reversed ? "flex-start" : "flex-end"};
+
+    && p {
+        width: 50%;
+        margin-right: ${props => props.reversed ? "0" : "10%"};
+        margin-left: ${props => props.reversed ? "10%" : "0"};
+
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: ${props => props.reversed ? "left" : "right"};
+    }
+`;
+
+const DetailedDescriptionContainer = styled.div`
+    height: 80%;
+    width: calc(100% / 3);
+    align-self: flex-end;
+
+    display: flex;
+    justify-content: ${props => props.reversed ? "flex-end" : "flex-start"};
+
+    && p {
+        width: 80%;
+        margin-right: ${props => props.reversed ? "10%" : "0"};
+        margin-left: ${props => props.reversed ? "0" : "10%"};
+
+        font-size: 0.9rem;
+        text-align: ${props => props.reversed ? "right" : "left"};;
+        text-transform: uppercase;
+        color: ${props => props.color !== null ? props.color : "black"};
+        text-decoration: ${props => props.underlined ? "underline" : "none"};
+    }
 `;
 
 const MoviePage = (props) => {
@@ -97,18 +138,12 @@ const MoviePage = (props) => {
 
         for (let index = 0; index < wordList.length; index++) {
             sentence = sentence.concat(wordList[index]);
-            if(index != wordList.length - 1) {
+            if(index !== wordList.length - 1) {
                 sentence = sentence.concat(", ");
             }
         }
 
         return sentence; 
-    }    
-
-    const [posterToggle, setPoster] = useState(0);
-
-    const togglePoster = () => {
-        posterToggle === 0 ? setPoster(1) : setPoster(0);
     }
 
     return (
@@ -116,11 +151,7 @@ const MoviePage = (props) => {
             <NavBar></NavBar>
             <HeaderWrapper>
                 <HeaderTitleWrapper>
-                    <img className="posterWrapper" src={posterSouls} style={{height: `${posterToggle === 0 ? "0" : "60%"}`, width:`${posterToggle === 0 ? "0" : "15%"}`}}></img>
                     <h1 className="movieTitle">{props.movie[0].name}</h1>
-                    <PosterButton onClick={togglePoster}>
-                        {posterToggle === 0 ? "SHOW POSTER" : "HIDE POSTER"}
-                    </PosterButton>
                 </HeaderTitleWrapper>
                 <HeaderDescriptionWrapper>
                     <LineContainer>
@@ -145,7 +176,55 @@ const MoviePage = (props) => {
                     </LineContainer>
                 </HeaderDescriptionWrapper>
             </HeaderWrapper>
-            <PhotoDescriptionContainer></PhotoDescriptionContainer>
+            
+            <PhotoDescriptionContainer>
+                <video controls>
+                    <source src={sky}></source>
+                </video>
+                <DetailedDescriptionContainer>
+                    <p>playboy /ˈpleɪbɔɪ/ (noun) = a wealthy man who spends his time enjoying himself, especially one who behaves irresponsibly or has many casual sexual relationships.</p>
+                </DetailedDescriptionContainer>
+            </PhotoDescriptionContainer>
+
+            <PhotoDescriptionContainer>
+                <BoldDescriptionContainer>
+                    <p>{props.movie[0].boldDescription[0]}</p>
+                </BoldDescriptionContainer>
+                <img src={carnival1} alt="firstpic"></img>
+                <DetailedDescriptionContainer color="red">
+                    <p>{props.movie[0].detailedDescription[0]}</p>
+                </DetailedDescriptionContainer>
+            </PhotoDescriptionContainer>
+            
+            <PhotoDescriptionContainer reversed>
+                <BoldDescriptionContainer reversed>
+                    <p>{props.movie[0].boldDescription[1]}</p>
+                </BoldDescriptionContainer>
+                <img src={carnival2} alt="secondpic"></img>
+                <DetailedDescriptionContainer reversed>
+                    <p>{props.movie[0].detailedDescription[1]}</p>
+                </DetailedDescriptionContainer>
+            </PhotoDescriptionContainer>
+
+            <PhotoDescriptionContainer>
+                <BoldDescriptionContainer>
+                    <p>{props.movie[0].boldDescription[2]}</p>
+                </BoldDescriptionContainer>
+                <img src={carnival3} alt="thirdpic"></img>
+                <DetailedDescriptionContainer color="red">
+                    <p>{props.movie[0].detailedDescription[2]}</p>
+                </DetailedDescriptionContainer>
+            </PhotoDescriptionContainer>
+            
+            <PhotoDescriptionContainer reversed>
+                <BoldDescriptionContainer reversed>
+                    <p>{props.movie[0].boldDescription[3]}</p>
+                </BoldDescriptionContainer>
+                <img src={carnival4} alt="fourthpic"></img>
+                <DetailedDescriptionContainer reversed>
+                    <p>{props.movie[0].detailedDescription[3]}</p>
+                </DetailedDescriptionContainer>
+            </PhotoDescriptionContainer>
         </MoviePageWrapper>
     );
 }
