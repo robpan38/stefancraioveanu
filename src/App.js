@@ -21,9 +21,9 @@ const movieDb = [
 function App() {
   return (
     <div className="App">
-      <NavBar></NavBar>
-      <Movies/>
-      {/* <MoviePage movie={movieDb}></MoviePage> */}
+      {/* <NavBar></NavBar> */}
+      {/* <Movies/> */}
+      <MoviePage movie={movieDb}></MoviePage>
     </div>
   );
 }

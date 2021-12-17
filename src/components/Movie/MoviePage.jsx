@@ -71,6 +71,12 @@ const LineContainer = styled.div`
     && .value {
         width: 30%;
     }
+
+    @media screen and (max-width: 750px) {
+        && p {
+            font-size: 1.35rem;
+        }
+    }
 `;
 
 const PhotoDescriptionContainer = styled.div`
@@ -90,6 +96,27 @@ const PhotoDescriptionContainer = styled.div`
         height: 90%;
         width: calc(100% / 2);
     }
+
+    @media screen and (max-width: 750px) {
+        height: 100%;
+        align-items: center;
+        flex-direction: ${props => props.reversed ? "column-reverse" : "column"};
+        justify-content: space-evenly;
+        margin-bottom: 5%;
+
+        && img {
+            height: 55%;
+            width: 80%;
+        }
+        
+        && video {
+            display: block;
+            height: 70%;
+            width: 100%;
+        }
+
+        border: 0.5px solid black;
+    }
 `;
 
 const BoldDescriptionContainer = styled.div`
@@ -108,6 +135,25 @@ const BoldDescriptionContainer = styled.div`
         font-size: 2rem;
         font-weight: 700;
         text-align: ${props => props.reversed ? "left" : "right"};
+    }
+
+    @media screen and (max-width: 750px) {
+        height: 7%;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+
+        align-items: ${props => props.reversed ? "flex-end" : "flex-start"};
+
+        && p {
+            display: block;
+            height: 100%;
+            width: 90%;
+
+            margin-right: 0;
+            margin-left: 0;
+            font-size: 1.5rem;
+        }
     }
 `;
 
@@ -129,6 +175,22 @@ const DetailedDescriptionContainer = styled.div`
         text-transform: uppercase;
         color: ${props => props.color !== null ? props.color : "black"};
         text-decoration: ${props => props.underlined ? "underline" : "none"};
+    }
+
+    @media screen and (max-width: 750px) {
+        height: 30%;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: ${props => props.reversed ? "flex-start" : "flex-end"};
+
+        && p {
+            width: 90%;
+            margin-right: 0;
+            margin-left: 0;
+
+            font-size: 1.2rem;
+        }
     }
 `;
 
