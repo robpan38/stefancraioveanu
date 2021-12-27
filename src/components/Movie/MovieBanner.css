@@ -1,5 +1,5 @@
 .movieBanner {
-    height: 50%;
+    height: 100%;
     width: 100%;
 
     position: relative;
@@ -48,10 +48,10 @@
 
 .smallDescription {
     color: white;
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 .bigDescription {
     color: white;
-    font-size: 3rem;
+    font-size: 2.5rem;
 }

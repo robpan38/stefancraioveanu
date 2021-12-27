@@ -1,12 +1,8 @@
 import NavBar from "../NavBar";
 import styled from "styled-components";
-import posterSouls from "../../images/carnival/poster.jpg";
-import carnival1 from "../../images/carnival/pic1.jpg";
-import carnival2 from "../../images/carnival/pic2.jpg";
-import carnival3 from "../../images/carnival/pic3.jpg";
-import carnival4 from "../../images/carnival/pic4.jpg";
-import sky from "../../images/sky.mp4";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getMovie } from "../../movieDb";
 
 const MoviePageWrapper = styled.div`
     height: 100%;
@@ -128,7 +124,7 @@ const BoldDescriptionContainer = styled.div`
     justify-content: ${props => props.reversed ? "flex-start" : "flex-end"};
 
     && p {
-        width: 50%;
+        width: 100%;
         margin-right: ${props => props.reversed ? "0" : "10%"};
         margin-left: ${props => props.reversed ? "10%" : "0"};
 
@@ -194,7 +190,44 @@ const DetailedDescriptionContainer = styled.div`
     }
 `;
 
+const folderNames = [
+    {
+        "name": "Carnival of Souls",
+        "folder": "carnival"
+    },
+    {
+        "name": "Drive",
+        "folder": "drive"
+    },
+    {
+        "name": "The Place Beyond the Pines",
+        "folder": "pines"
+    },
+    {
+        "name": "American Psycho",
+        "folder": "psycho"
+    },
+    {
+        "name": "Taxi Driver",
+        "folder": "taxi"
+    },
+    {
+        "name": "American Beauty",
+        "folder": "beauty"
+    },
+    {
+        "name": "Nightcrawler",
+        "folder": "nightcrawler"
+    }
+];
+
 const MoviePage = (props) => {
+    let params = useParams();
+
+    const computeFilmNameFromParam = (filmNameParam) => {
+        return filmNameParam.replace("%20", " ");
+    }
+
     const computeConcatenatedString = (wordList) => {
         let sentence = "";
 
@@ -208,40 +241,47 @@ const MoviePage = (props) => {
         return sentence; 
     }
 
+    let movieName = computeFilmNameFromParam(params.movieName);
+    let movie = getMovie(movieName);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <MoviePageWrapper>
             <NavBar></NavBar>
             <HeaderWrapper>
                 <HeaderTitleWrapper>
-                    <h1 className="movieTitle">{props.movie[0].name}</h1>
+                    <h1 className="movieTitle">{movie.name}</h1>
                 </HeaderTitleWrapper>
                 <HeaderDescriptionWrapper>
                     <LineContainer>
                         <p className="property">Year:</p>
-                        <p className="value">{props.movie[0].year}</p>
+                        <p className="value">{movie.year}</p>
                     </LineContainer>
                     <LineContainer>
                         <p className="property">Genre:</p>
-                        <p className="value">{computeConcatenatedString(props.movie[0].genre)}</p>
+                        <p className="value">{computeConcatenatedString(movie.genre)}</p>
                     </LineContainer>
                     <LineContainer>
                         <p className="property">Director:</p>
-                        <p className="value">{props.movie[0].director}</p>
+                        <p className="value">{movie.director}</p>
                     </LineContainer>
                     <LineContainer>
                         <p className="property">Writer:</p>
-                        <p className="value">{props.movie[0].writer}</p>
+                        <p className="value">{movie.writer}</p>
                     </LineContainer>
                     <LineContainer>
                         <p className="property">Cast:</p>
-                        <p className="value">{computeConcatenatedString(props.movie[0].cast)}</p>
+                        <p className="value">{computeConcatenatedString(movie.cast)}</p>
                     </LineContainer>
                 </HeaderDescriptionWrapper>
             </HeaderWrapper>
             
             <PhotoDescriptionContainer>
                 <video controls>
-                    <source src={sky}></source>
+                    <source src={'/images/sky.mp4'}></source>
                 </video>
                 <DetailedDescriptionContainer>
                     <p>playboy /ˈpleɪbɔɪ/ (noun) = a wealthy man who spends his time enjoying himself, especially one who behaves irresponsibly or has many casual sexual relationships.</p>
@@ -250,41 +290,41 @@ const MoviePage = (props) => {
 
             <PhotoDescriptionContainer>
                 <BoldDescriptionContainer>
-                    <p>{props.movie[0].boldDescription[0]}</p>
+                    <p>{movie.boldDescription[0]}</p>
                 </BoldDescriptionContainer>
-                <img src={carnival1} alt="firstpic"></img>
+                <img src={`/images/${folderNames.find(folder => folder.name === movieName).folder}/pic1.jpg`} alt="firstpic"></img>
                 <DetailedDescriptionContainer color="red">
-                    <p>{props.movie[0].detailedDescription[0]}</p>
+                    <p>{movie.detailedDescription[0]}</p>
                 </DetailedDescriptionContainer>
             </PhotoDescriptionContainer>
             
             <PhotoDescriptionContainer reversed>
                 <BoldDescriptionContainer reversed>
-                    <p>{props.movie[0].boldDescription[1]}</p>
+                    <p>{movie.boldDescription[1]}</p>
                 </BoldDescriptionContainer>
-                <img src={carnival2} alt="secondpic"></img>
+                <img src={`/images/${folderNames.find(folder => folder.name === movieName).folder}/pic2.jpg`} alt="secondpic"></img>
                 <DetailedDescriptionContainer reversed>
-                    <p>{props.movie[0].detailedDescription[1]}</p>
+                    <p>{movie.detailedDescription[1]}</p>
                 </DetailedDescriptionContainer>
             </PhotoDescriptionContainer>
 
             <PhotoDescriptionContainer>
                 <BoldDescriptionContainer>
-                    <p>{props.movie[0].boldDescription[2]}</p>
+                    <p>{movie.boldDescription[2]}</p>
                 </BoldDescriptionContainer>
-                <img src={carnival3} alt="thirdpic"></img>
+                <img src={`/images/${folderNames.find(folder => folder.name === movieName).folder}/pic3.jpg`} alt="thirdpic"></img>
                 <DetailedDescriptionContainer color="red">
-                    <p>{props.movie[0].detailedDescription[2]}</p>
+                    <p>{movie.detailedDescription[2]}</p>
                 </DetailedDescriptionContainer>
             </PhotoDescriptionContainer>
             
             <PhotoDescriptionContainer reversed>
                 <BoldDescriptionContainer reversed>
-                    <p>{props.movie[0].boldDescription[3]}</p>
+                    <p>{movie.boldDescription[3]}</p>
                 </BoldDescriptionContainer>
-                <img src={carnival4} alt="fourthpic"></img>
+                <img src={`/images/${folderNames.find(folder => folder.name === movieName).folder}/pic4.jpg`} alt="fourthpic"></img>
                 <DetailedDescriptionContainer reversed>
-                    <p>{props.movie[0].detailedDescription[3]}</p>
+                    <p>{movie.detailedDescription[3]}</p>
                 </DetailedDescriptionContainer>
             </PhotoDescriptionContainer>
         </MoviePageWrapper>
