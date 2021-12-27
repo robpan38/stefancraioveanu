@@ -13,9 +13,7 @@
 }
 
 .movieBanner img:hover {
-    /* blur(2px) */
-    /* filter: grayscale(100%); */
-    /* opacity: 100%; */
+    filter: blur(7px) grayscale(100%);
     cursor: pointer;
 }
 
