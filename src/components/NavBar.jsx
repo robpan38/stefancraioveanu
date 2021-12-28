@@ -5,7 +5,7 @@ const NavBar = () => {
     return (
         <div className="navBarWrapper">
             <div className="menuWrapper">
-                <Link style={{color: "white", textDecoration: "none"}} to="/">
+                <Link style={{color: "white", textDecoration: "none"}} to="/home">
                     <p>Home</p>
                 </Link>
                 <Link style={{color: "white", textDecoration: "none"}} to="/directing">

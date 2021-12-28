@@ -101,7 +101,7 @@ const PhotoDescriptionContainer = styled.div`
         margin-bottom: 5%;
 
         && img {
-            height: 55%;
+            height: 45%;
             width: 80%;
         }
         
@@ -134,7 +134,7 @@ const BoldDescriptionContainer = styled.div`
     }
 
     @media screen and (max-width: 750px) {
-        height: 7%;
+        height: 16%;
         width: 100%;
         flex-direction: column;
         justify-content: center;
@@ -174,7 +174,7 @@ const DetailedDescriptionContainer = styled.div`
     }
 
     @media screen and (max-width: 750px) {
-        height: 30%;
+        height: 34%;
         width: 100%;
         flex-direction: column;
         justify-content: center;
