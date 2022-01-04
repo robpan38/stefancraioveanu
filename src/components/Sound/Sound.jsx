@@ -38,6 +38,14 @@ const AlbumCoverContainer = styled.div`
         font-size: 1.5rem;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 800px) {
+        width: 80%;
+
+        & i {
+            font-size: 2rem;
+        }
+    }
 `;
 
 const SongInfoContainer = styled.div`
@@ -61,6 +69,18 @@ const SongInfoContainer = styled.div`
     & .artist {
         font-size: 1rem;
     }
+
+    @media screen and (max-width: 800px) {
+        width: 80%;
+
+        & .name {
+            font-size: 1.7rem;
+        }
+
+        & .artist {
+            font-size: 1.5rem;
+        }
+    }
 `
 
 const ProgressBarContainer = styled.div`
@@ -71,6 +91,10 @@ const ProgressBarContainer = styled.div`
     align-items: center;
 
     border: 1px solid black;
+
+    @media screen and (max-width: 800px) {
+        width: 80%;
+    }
 `;
 
 const ProgressBar = styled.input`
@@ -156,6 +180,18 @@ const ProgressBar = styled.input`
         background-color: #000000;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 800px) {
+        &::-webkit-slider-thumb {
+            height: 1.1rem;
+            width: 1.1rem;
+        }
+
+        &::-moz-range-thumb {
+            height: 1.1rem;
+            width: 1.1rem;
+        }
+    }
 `;
 
 const ControlsContainer = styled.div`
@@ -172,6 +208,18 @@ const ControlsContainer = styled.div`
     & i {
         font-size: 1.2rem;
         cursor: pointer;
+    }
+
+    @media screen and (max-width: 800px) {
+        width: 80%;
+
+        & i {
+            font-size: 1.7rem;
+        }
+
+        & p {
+            font-size: 1.5rem;
+        }
     }
 `
 
