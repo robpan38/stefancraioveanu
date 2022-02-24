@@ -1,5 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../NavBar";
+import { showreelsDb } from "./showreelsDb";
 
 const ShowreelsWrapper = styled.div`
     height: 100%;
@@ -36,6 +38,10 @@ const NavBarIconsWrapper = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+    @media screen and (max-width: 950px) {
+        width: 20%;
+    }
 `;
 
 const SmallCircle = styled.div`
@@ -53,10 +59,19 @@ const WindowTitleWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media screen and (max-width: 950px) {
+        width: 80%;
+        transform: translateX(-15%);
+    }
 `
 
 const WindowTitle = styled.p`
     font-size: 0.8rem;
+
+    @media screen and (max-width: 950px) {
+        font-size: 1.2rem;
+    }
 `;
 
 const ContentWrapper = styled.div`
@@ -66,6 +81,10 @@ const ContentWrapper = styled.div`
     column-gap: 2%;
     padding-left: 2%;
     padding-top: 2%;
+
+    @media screen and (max-width: 950px) {
+        column-gap: 6%;
+    }
 `
 
 const FolderWrapper = styled.div`
@@ -81,6 +100,10 @@ const FolderWrapper = styled.div`
         height: 80%;
         width: 80%;
     }
+
+    @media screen and (max-width: 950px) {
+        width: 22%;
+    }
 `;
 
 const FolderName = styled.p`
@@ -88,9 +111,78 @@ const FolderName = styled.p`
     height: 20%;
     width: 100%;
     font-size: 0.5rem;
+    
+    @media screen and (max-width: 950px) {
+        font-size: 0.9rem;
+    }
+`;
+
+const ShowreelWrapper = styled.div`
+    height: 100%;
+    width: 100%;
+    
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+
+    & .showreelDescription {
+        width: 98%;
+        margin-bottom: 2%;
+    }
+
+    & video {
+        height: 86%;
+        width: 98%;
+    }
+
+    @media screen and (max-width: 950px) {
+        & .showreelDescription {
+            font-size: 1.3rem;
+        }
+    }
+`;
+
+const ShowreelTextWrapper = styled.div`
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Fira Code', monospace;
+
+    & .goBackBtn {
+        padding-right: 2%;
+    }
+
+    & p:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 950px) {
+        height: 5%;
+
+        & p {
+            font-size: 1.2rem;
+        }
+    }
 `;
 
 const FileSystem = () => {
+    const [showDetails, setShowDetails] = useState(false);
+    const [showreel, setShowreel] = useState(null);
+
+    const findShowreel = () => {
+        let showreelName = showreel;
+        return showreelsDb.find(showreel => showreel.name === showreelName);
+    }
+    const currentShowreel = showreel !== null ? findShowreel() : null;
+
     return (
         <WindowWrapper>
             <Window>
@@ -101,22 +193,54 @@ const FileSystem = () => {
                         <SmallCircle color="#24c634"/>
                     </NavBarIconsWrapper>
                     <WindowTitleWrapper>
-                        <WindowTitle>Showreels</WindowTitle>
+                        <WindowTitle>
+                            {
+                                showreel === null ? "Showreels" : (showDetails ? `Showreels/${showreel}/details` : `Showreels/${showreel}/video`)
+                            }
+                        </WindowTitle>
                     </WindowTitleWrapper>
                 </WindowNavBarWrapper>
                 <ContentWrapper>
-                    <FolderWrapper>
-                        <img src="/images/showreels/folder.png"></img>
-                        <FolderName>Sound - showreels</FolderName>
-                    </FolderWrapper>
-                    <FolderWrapper>
-                        <img src="/images/showreels/folder.png"></img>
-                        <FolderName>Directing - showreels</FolderName>
-                    </FolderWrapper>
-                    <FolderWrapper>
-                        <img src="/images/showreels/folder.png"></img>
-                        <FolderName>All of it - showreels</FolderName>
-                    </FolderWrapper>
+                    {
+                        showreel === null ?
+                        <>
+                            <FolderWrapper onClick={() => setShowreel("Sound")}>
+                            <img src="/images/showreels/folder.png"></img>
+                            <FolderName>Sound - showreels</FolderName>
+                            </FolderWrapper>
+                            <FolderWrapper onClick={() => setShowreel("Directing")}>
+                                <img src="/images/showreels/folder.png"></img>
+                                <FolderName>Directing - showreels</FolderName>
+                            </FolderWrapper>
+                            <FolderWrapper onClick={() => setShowreel("All of it")}>
+                                <img src="/images/showreels/folder.png"></img>
+                                <FolderName>All of it - showreels</FolderName>
+                            </FolderWrapper>
+                        </>
+                        :
+                        <>
+                            <ShowreelWrapper>
+                            <ShowreelTextWrapper>
+                                <p onClick={() => setShowDetails(!showDetails)}>
+                                    {showDetails ? "Video" : "Details"}
+                                </p>
+                                <p onClick={() => {
+                                    setShowreel(null);
+                                    setShowDetails(false);
+                                }}
+                                className="goBackBtn">Go back</p>
+                            </ShowreelTextWrapper>
+                            {
+                                showDetails ? 
+                                <p className="showreelDescription">{ currentShowreel.description }</p>
+                                :
+                                <video controls>
+                                    <source src={ currentShowreel.video } />
+                                </video>
+                        }
+                    </ShowreelWrapper>
+                        </>
+                    }
                 </ContentWrapper>
             </Window>
         </WindowWrapper>
