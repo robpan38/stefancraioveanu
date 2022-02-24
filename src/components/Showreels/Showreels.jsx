@@ -195,7 +195,7 @@ const FileSystem = () => {
                     <WindowTitleWrapper>
                         <WindowTitle>
                             {
-                                showreel === null ? "Showreels" : (showDetails ? `Showreels/${showreel}/details` : `Showreels/${showreel}/video`)
+                                showreel === null ? "Showreels" : (showDetails ? `./${showreel}/details` : `./${showreel}/video`)
                             }
                         </WindowTitle>
                     </WindowTitleWrapper>
