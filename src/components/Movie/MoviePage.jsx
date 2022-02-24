@@ -1,6 +1,6 @@
 import NavBar from "../NavBar";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getMovie } from "../../movieDb";
 

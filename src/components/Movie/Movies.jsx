@@ -2,7 +2,7 @@ import './Movies.css';
 import MovieBanner from './MovieBanner';
 import useMediaQuery from '../UseMediaQuery';
 import NavBar from '../NavBar';
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getMovies } from '../../movieDb';
 
 const Movies = (props) => {

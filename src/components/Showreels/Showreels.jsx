@@ -205,15 +205,15 @@ const FileSystem = () => {
                         showreel === null ?
                         <>
                             <FolderWrapper onClick={() => setShowreel("Sound")}>
-                            <img src="/images/showreels/folder.png"></img>
+                            <img src="/images/showreels/folder.png" alt="folder"></img>
                             <FolderName>Sound - showreels</FolderName>
                             </FolderWrapper>
                             <FolderWrapper onClick={() => setShowreel("Directing")}>
-                                <img src="/images/showreels/folder.png"></img>
+                                <img src="/images/showreels/folder.png" alt="folder"></img>
                                 <FolderName>Directing - showreels</FolderName>
                             </FolderWrapper>
                             <FolderWrapper onClick={() => setShowreel("All of it")}>
-                                <img src="/images/showreels/folder.png"></img>
+                                <img src="/images/showreels/folder.png" alt="folder"></img>
                                 <FolderName>All of it - showreels</FolderName>
                             </FolderWrapper>
                         </>

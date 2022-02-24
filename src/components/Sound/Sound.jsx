@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../NavBar";
 
@@ -222,8 +222,6 @@ const ControlsContainer = styled.div`
         }
     }
 `
-
-let songIndex = 0;
 
 let songs = [
     {
