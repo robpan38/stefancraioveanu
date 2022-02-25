@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../NavBar";
 import { showreelsDb } from "./showreelsDb";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ShowreelsWrapper = styled.div`
     height: 100%;
@@ -17,7 +18,7 @@ const WindowWrapper = styled.div`
     font-family: Fira-Code, monospace;
 `;
 
-const Window = styled.div`
+const Window = styled(motion.div)`
     height: 90%;
     width: 90%;
     overflow: hidden;
@@ -87,7 +88,7 @@ const ContentWrapper = styled.div`
     }
 `
 
-const FolderWrapper = styled.div`
+const FolderWrapper = styled(motion.div)`
     height: 13%;
     width: 10%;
 
@@ -117,7 +118,7 @@ const FolderName = styled.p`
     }
 `;
 
-const ShowreelWrapper = styled.div`
+const ShowreelWrapper = styled(motion.div)`
     height: 100%;
     width: 100%;
     
@@ -183,14 +184,29 @@ const FileSystem = () => {
     }
     const currentShowreel = showreel !== null ? findShowreel() : null;
 
+    const windowVariants = {
+        initial: {
+            opacity: 0,
+            scale: 0.8
+        },
+        first: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 0.3,
+                ease: "linear"
+            }
+        }
+    }
+
     return (
         <WindowWrapper>
-            <Window>
+            <Window initial="initial" animate="first" variants={windowVariants}>
                 <WindowNavBarWrapper>
                     <NavBarIconsWrapper>
                         <SmallCircle />
-                        <SmallCircle color="#fdb42c"/>
-                        <SmallCircle color="#24c634"/>
+                        <SmallCircle color="#fdb42c" />
+                        <SmallCircle color="#24c634" />
                     </NavBarIconsWrapper>
                     <WindowTitleWrapper>
                         <WindowTitle>
@@ -200,48 +216,76 @@ const FileSystem = () => {
                         </WindowTitle>
                     </WindowTitleWrapper>
                 </WindowNavBarWrapper>
-                <ContentWrapper>
-                    {
-                        showreel === null ?
-                        <>
-                            <FolderWrapper onClick={() => setShowreel("Sound")}>
-                            <img src="/images/showreels/folder.png" alt="folder"></img>
-                            <FolderName>Sound - showreels</FolderName>
-                            </FolderWrapper>
-                            <FolderWrapper onClick={() => setShowreel("Directing")}>
-                                <img src="/images/showreels/folder.png" alt="folder"></img>
-                                <FolderName>Directing - showreels</FolderName>
-                            </FolderWrapper>
-                            <FolderWrapper onClick={() => setShowreel("All of it")}>
-                                <img src="/images/showreels/folder.png" alt="folder"></img>
-                                <FolderName>All of it - showreels</FolderName>
-                            </FolderWrapper>
-                        </>
-                        :
-                        <>
-                            <ShowreelWrapper>
-                            <ShowreelTextWrapper>
-                                <p onClick={() => setShowDetails(!showDetails)}>
-                                    {showDetails ? "Video" : "Details"}
-                                </p>
-                                <p onClick={() => {
-                                    setShowreel(null);
-                                    setShowDetails(false);
-                                }}
-                                className="goBackBtn">Go back</p>
-                            </ShowreelTextWrapper>
-                            {
-                                showDetails ? 
-                                <p className="showreelDescription">{ currentShowreel.description }</p>
+                <AnimatePresence initial={false} exitBeforeEnter>
+                    <ContentWrapper>
+                        {
+                            showreel === null ?
+                                <>
+                                    <FolderWrapper whileHover={{ scale: 1.2 }}
+                                        whileTap={{ scale: 0.8 }}
+                                        exit={{ scale: 0 }}
+                                        onClick={() => setShowreel("Sound")}
+                                        initial="initial" animate="first" variants={windowVariants}>
+
+                                        <img src="/images/showreels/folder.png" alt="folder"></img>
+                                        <FolderName>Sound - showreels</FolderName>
+                                    </FolderWrapper>
+                                    <FolderWrapper whileHover={{ scale: 1.2 }}
+                                        whileTap={{ scale: 0.8 }}
+                                        exit={{ scale: 0 }}
+                                        onClick={() => setShowreel("Directing")}
+                                        initial="initial" animate="first" variants={windowVariants}>
+
+                                        <img src="/images/showreels/folder.png" alt="folder"></img>
+                                        <FolderName>Directing - showreels</FolderName>
+                                    </FolderWrapper>
+                                    <FolderWrapper whileHover={{ scale: 1.2 }}
+                                        whileTap={{ scale: 0.8 }}
+                                        exit={{ scale: 0 }}
+                                        onClick={() => setShowreel("All of it")}
+                                        initial="initial" animate="first" variants={windowVariants}>
+
+                                        <img src="/images/showreels/folder.png" alt="folder"></img>
+                                        <FolderName>All of it - showreels</FolderName>
+                                    </FolderWrapper>
+                                </>
                                 :
-                                <video controls>
-                                    <source src={ currentShowreel.video } />
-                                </video>
+                                <>
+                                    <ShowreelWrapper
+                                        initial="initial"
+                                        animate="first"
+                                        exit={{ scale: 0 }}
+                                        variants={windowVariants}
+                                    >
+                                        <ShowreelTextWrapper>
+                                            <p onClick={() => setShowDetails(!showDetails)}>
+                                                {showDetails ? "Video" : "Details"}
+                                            </p>
+                                            <p onClick={() => {
+                                                setShowreel(null);
+                                                setShowDetails(false);
+                                            }}
+                                                className="goBackBtn">Go back</p>
+                                        </ShowreelTextWrapper>
+                                        {
+                                            showDetails ?
+                                                <motion.p
+                                                    className="showreelDescription"
+                                                    initial="initial" animate="first" variants={windowVariants}
+                                                >{currentShowreel.description}</motion.p>
+                                                :
+                                                <motion.video
+                                                    controls
+                                                    initial="initial" animate="first" variants={windowVariants}
+                                                >
+                                                    <source src={currentShowreel.video} />
+                                                </motion.video>
+                                        }
+                                    </ShowreelWrapper>
+                                </>
                         }
-                    </ShowreelWrapper>
-                        </>
-                    }
-                </ContentWrapper>
+                    </ContentWrapper>
+                </AnimatePresence>
             </Window>
         </WindowWrapper>
     )
